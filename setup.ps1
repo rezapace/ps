@@ -10,12 +10,6 @@ if (!(Test-Path -Path $githubDirectory -PathType Container)) {
     New-Item -Path $githubDirectory -ItemType Directory | Out-Null
 }
 
-# Navigasi ke direktori Github
-Set-Location -Path $githubDirectory
-
-# Clone repositori dari GitHub
-git clone "https://github.com/rezapace/powershell-profile"
-
 # Navigasi kembali ke direktori sebelumnya
 Set-Location -Path $PWD.Path
 
@@ -34,7 +28,7 @@ if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
             }
         }
         # Unduh profil dari GitHub dan tulis ke $PROFILE
-        Invoke-RestMethod https://github.com/rezapace/powershell-profile/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+        Invoke-RestMethod https://github.com/rezapace/ps/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
         Write-Host "Profil @ [$PROFILE] telah dibuat."
     }
     catch {
@@ -44,7 +38,7 @@ if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
 else {
     # Pindahkan profil lama ke oldprofile.ps1 dan unduh profil baru dari GitHub
     Get-Item -Path $PROFILE | Move-Item -Destination oldprofile.ps1 -Force
-    Invoke-RestMethod https://github.com/rezapace/powershell-profile/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+    Invoke-RestMethod https://github.com/rezapace/ps/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
     Write-Host "Profil @ [$PROFILE] telah dibuat dan profil lama dihapus."
 }
 
@@ -94,3 +88,21 @@ choco install gsudo -y
 Set-ExecutionPolicy RemoteSigned
 Set-ExecutionPolicy Restricted
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Fungsi untuk membuka PowerShell sebagai administrator
+function Run-As-Administrator {
+    param([scriptblock]$ScriptBlock)
+    Start-Process -FilePath powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $($ScriptBlock | Out-String)" -Verb RunAs
+}
+
+# Skrip untuk dijalankan sebagai administrator
+$adminScript = {
+    # Navigasi ke direktori Github
+    Set-Location -Path $env:userprofile\Documents\Github
+
+    # Clone repositori dari GitHub
+    git clone "https://github.com/rezapace/ps"
+}
+
+# Jalankan skrip sebagai administrator
+Run-As-Administrator -ScriptBlock $adminScript

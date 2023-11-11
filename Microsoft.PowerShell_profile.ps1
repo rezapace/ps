@@ -553,7 +553,7 @@ function posting {
 # Set-PSReadLineKeyHandler -Key Ctrl+f -ScriptBlock ${function:Invoke-PecoHistory}
 
 # lokasi profile theme
-oh-my-posh init pwsh --config $HOME\Documents\GitHub\powershell-profile\rezapace.theme.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config $HOME\Documents\GitHub\ps\rezapace.theme.omp.json | Invoke-Expression
 
 # menjalankan chocolatey
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
