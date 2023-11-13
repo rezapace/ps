@@ -134,7 +134,6 @@ Set-ExecutionPolicy Restricted
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 
-
 # Skrip untuk dijalankan sebagai administrator
 $adminScript = {
 # clone github repository
