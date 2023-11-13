@@ -120,6 +120,12 @@ else {
 # Eksekusi profil
 & $profile
 
+# Instalasi NuGet provider jika belum terinstal
+$nugetProviderInstalled = Get-Command NuGet -ErrorAction SilentlyContinue
+if (-not $nugetProviderInstalled) {
+    Install-PackageProvider -Name NuGet -Force
+}
+
 # Instalasi modul-modul yang dibutuhkan melalui PowerShellGet dan Chocolatey
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 Install-Module -Name posh-git -Scope CurrentUser -Force
