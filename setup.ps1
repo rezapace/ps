@@ -86,11 +86,7 @@ function Run-As-Administrator {
     Start-Process -FilePath powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $($ScriptBlock | Out-String)" -Verb RunAs
 }
 
-# Skrip untuk dijalankan sebagai administrator
-$adminScript = {
-# clone github repository
-Set-Location -Path $env:userprofile\Documents\Github
-git clone "https://github.com/rezapace/ps"
+# installer ke2
 
 # Periksa apakah file profil pengguna ada, jika tidak, buat profil baru
 if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
@@ -136,6 +132,14 @@ Install-Module -Name PSFzf -Scope CurrentUser -Force
 Set-ExecutionPolicy RemoteSigned
 Set-ExecutionPolicy Restricted
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+
+# Skrip untuk dijalankan sebagai administrator
+$adminScript = {
+# clone github repository
+Set-Location -Path $env:userprofile\Documents\Github
+git clone "https://github.com/rezapace/ps"
 }
 
 # Jalankan skrip sebagai administrator
