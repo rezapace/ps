@@ -2,6 +2,8 @@
 
 Terminal Keren.
 
+Note **<span style="color:red">Jalankan dengan Administrator</span>**
+
 ## ⚡ Satu Baris Langsung Jadi
 
 Langsung Saja Eksekusi dengan perintah:

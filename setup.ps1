@@ -18,7 +18,7 @@ if (-not $ohMyPoshInstalled) {
     winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
 }
 else {
-    Write-Host "Oh My Posh is already installed."
+    Write-Host "Oh My Posh Sudah Terinstall."
 }
 
 # penginstalan Font
