@@ -149,3 +149,19 @@ git clone "https://github.com/rezapace/ps"
 
 # Jalankan skrip sebagai administrator
 Run-As-Administrator -ScriptBlock $adminScript
+
+# Tentukan path ke executable WindowsTerminal.exe
+$windowsTerminalPath = "$env:userprofile\Documents\Github\ps\terminal\WindowsTerminal.exe"
+
+# Tentukan lokasi untuk menyimpan shortcut
+$shortcutPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Desktop\Windows Terminal.lnk')
+
+# Buat objek untuk membuat shortcut
+$WshShell = New-Object -ComObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($shortcutPath)
+
+# Atur properti shortcut
+$Shortcut.TargetPath = $windowsTerminalPath
+$Shortcut.Save()
+
+Write-Host "Shortcut untuk Windows Terminal telah dibuat di desktop."
