@@ -1,12 +1,12 @@
 # cek winget sudah terinstall atau belum
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-    Write-Host "Error: winget is not installed. Please install winget and run the script again."
+    Write-Host "Error: winget tidak terinstal. Silakan instal winget dan jalankan skrip lagi."
     exit
 }
 
 # cek git sudah terinstall atau belum
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-    Write-Host "Git is not installed. Installing Git..."
+    Write-Host "Git tidak diinstal. Menginstal Git..."
     winget install -e --id Git.Git
 }
 
@@ -14,7 +14,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 $ohMyPoshInstalled = Get-Command oh-my-posh -ErrorAction SilentlyContinue
 
 if (-not $ohMyPoshInstalled) {
-    Write-Host "Oh My Posh is not installed. Installing Oh My Posh..."
+    Write-Host "Oh My Posh tidak terinstal. Menginstal Oh My Posh..."
     winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
 }
 else {
@@ -52,7 +52,7 @@ if (-not $chocolateyInstalled) {
     iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
 else {
-    Write-Host "Chocolatey is already installed."
+    Write-Host "Chocolatey sudah terinstal."
 }
 
 # cek fzf sudah terinstall atau belum
@@ -61,7 +61,7 @@ if (-not $fzfInstalled) {
     choco install fzf -y
 }
 else {
-    Write-Host "fzf is already installed."
+    Write-Host "fzf sudah terinstal."
 }
 
 # cek gsudo sudah terinstall atau belum
@@ -70,7 +70,7 @@ if (-not $gsudoInstalled) {
     choco install gsudo -y
 }
 else {
-    Write-Host "gsudo is already installed."
+    Write-Host "gsudo sudah terinstal."
 }
 
 # Membuat direktori jika tidak ada
@@ -86,7 +86,7 @@ function Run-As-Administrator {
     Start-Process -FilePath powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $($ScriptBlock | Out-String)" -Verb RunAs
 }
 
-# installer ke2
+# installer ke 2
 
 # Periksa apakah file profil pengguna ada, jika tidak, buat profil baru
 if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
