@@ -26,3 +26,6 @@ Install package:
 ```
 irm "https://github.com/rezapace/ps/raw/main/r2.ps1" | iex
 ```
+
+## Tampilan
+![App Screenshot](https://github.com/rezapace/ps/blob/main/terminal/Tampilan.jpg?raw=true)
