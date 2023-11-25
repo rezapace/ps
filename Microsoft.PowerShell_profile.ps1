@@ -1,10 +1,3 @@
-#  ██╗    ██╗███████╗██████╗ ██╗  ██╗██╗   ██╗███╗   ███╗ █████╗ ██╗     
-#  ██║    ██║██╔════╝██╔══██╗██║ ██╔╝██║   ██║████╗ ████║██╔══██╗██║     
-#  ██║ █╗ ██║█████╗  ██████╔╝█████╔╝ ██║   ██║██╔████╔██║███████║██║     
-#  ██║███╗██║██╔══╝  ██╔══██╗██╔═██╗ ██║   ██║██║╚██╔╝██║██╔══██║██║     
-#  ╚███╔███╔╝███████╗██████╔╝██║  ██╗╚██████╔╝██║ ╚═╝ ██║██║  ██║███████╗
-#   ╚══╝╚══╝ ╚══════╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝
-
 Import-Module -Name Terminal-Icons
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -69,28 +62,15 @@ $EDITOR='sublime_text'
 Set-Alias -Name vim -Value $EDITOR
 
 # psreadline & fzf extension tambahan
-Set-PSReadLineOption -PredictionSource History # install install-Module PSReadLine -Force
+Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r' # scoop install fzf (install scoop dulu)
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 Set-PsFzfOption -TabExpansion
 
-function setupps {
-    Install-Module -Name Terminal-Icons -Repository PSGallery -Force
-    Install-Module -Name posh-git -Scope CurrentUser -Force
-    Install-Module -Name PowerShellGet -Scope CurrentUser -Force
-    Install-Module -Name z -Scope CurrentUser -Force
-    install-Module -Name PSReadLine CurrentUser -Force
-    scoop install fzf
-}
 
+#                 #                          #                              #                        #
 
-#  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗     ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
-#  ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝    ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║
-#  ███████╗██║     ██████╔╝██║██████╔╝   ██║       ██║     ██║   ██║███████╗   ██║   ██║   ██║██╔████╔██║
-#  ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║       ██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║
-#  ███████║╚██████╗██║  ██║██║██║        ██║       ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
-#  ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝        ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝   
 
 # script singkat
 function ll { Get-ChildItem -Path $pwd -File }
@@ -106,9 +86,27 @@ function v {code .}
 function rprofile {& $profile}
 function profile {code $HOME\Documents\\WindowsPowerShell}
 
-# balik dengan cepat
-function s {
-    cd ..
+# connect server ssh
+function serv {
+    ssh -i C:/Users/R/priv.pem root@47.236.4.238
+}
+
+# langsung buka vscode di directory
+function vs {
+    param(
+        [string]$argument
+    )
+    j $argument
+    v
+}
+
+# langsung buka explore di directory
+function ee {
+    param(
+        [string]$argument
+    )
+    j $argument
+    e
 }
 
 # list directory
@@ -140,6 +138,26 @@ function gup {
     git commit -m "$args"
     git push
 }
+
+function gupp {
+    param(
+        [string]$argument
+    )
+    j $argument
+
+    # Eksekusi perintah git add .
+    git add .
+
+    # Eksekusi perintah git commit -m "$args"
+    git commit -m "$args"
+
+    # Eksekusi perintah git push
+    git push
+
+    # Tampilkan status git setelah push (opsional)
+    git status
+}
+
 
 # mengetahui ip publik
 function Get-PubIP {
@@ -244,21 +262,13 @@ function linuxstat {
 wsl --list -v
 }
 
-
-
-#    ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
-#   ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║
-#   ██║     ██║   ██║███████╗   ██║   ██║   ██║██╔████╔██║
-#   ██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║
-#   ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
-#    ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
-
-# generate new repo
-function gn {
-$url = "https://github.com/new"
-$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-& $chromePath $url
+function s {
+    cd ..
 }
+
+
+#                 #                          #                              #                        #
+
 
 # menghapus file-file sementara
 function remove {
@@ -292,7 +302,7 @@ function remove {
 }
 
 # api chatgpt
-$script:OpenAI_Key = "isi dengan api key chatgpt"
+$script:OpenAI_Key = "isi api key disini"
 function ask
 {
 param(
@@ -346,6 +356,13 @@ $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
 & $chromePath $url
 }
 
+# generate new repo
+function gn {
+$url = "https://github.com/new"
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+& $chromePath $url
+}
+
 # menampilkan layar hp
 function hp {
 cd $HOME\Documents\GitHub
@@ -370,31 +387,81 @@ function posting {
     }
 }
 
+# membuat file baru
+function Nf {
+    param (
+        [string]$FileName
+    )
 
-# langsung buka vscode di directory (jangan lupa install Install-Module -Name z)
+    # Mendapatkan jalur ke direktori saat ini
+    $CurrentDirectory = Get-Location
 
-# function vs {
-#     param(
-#         [string]$argument
-#     )
-#     j $argument
-#     v
-# }
+    # Menggabungkan nama file dengan jalur direktori saat ini
+    $FilePath = Join-Path $CurrentDirectory $FileName
 
-# connect server ssh
+    # Membuat file baru
+    New-Item -ItemType File -Path $FilePath -Force
 
-# function serv {
-#     ssh -i C:/reza/priv.pem root@ip
-# }
+    # Membuka file dengan Notepad
+    Start-Process "notepad.exe" -ArgumentList $FilePath
+}
+
+
+# Function untuk mengaktifkan fitur Virtual Machine Platform
+function vmstop {
+    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+}
+
+# Function untuk menonaktifkan fitur Virtual Machine Platform
+function vmstart {
+    dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+    Disable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+    Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart
+}
+
+#Close all Program in Windows 10
+function closeall {
+    Stop-Process -Name "OfficeClickToRun" -Force
+    Stop-Process -Name "GoogleCrashHandler" -Force
+    Stop-Process -Name "GoogleCrashHandler64" -Force
+    Stop-Process -Name "Telegram" -Force
+    Stop-Process -Name "Code" -Force
+    Stop-Process -Name "chrome" -Force
+    Stop-Process -Name "notepad" -Force
+    Stop-Process -Name "7zFM" -Force
+    Stop-Process -Name "Discord" -Force
+    Stop-Process -Name "WINWORD" -Force
+    Stop-Process -Name "EXCEL" -Force
+    Stop-Process -Name "POWERPNT" -Force
+    Stop-Process -Name "Notion" -Force
+    Stop-Process -Name "vlc" -Force
+    Stop-Process -Name "xampp-control" -Force
+    Stop-Process -Name "cmd" -Force
+    Stop-Process -Name "SearchApp" -Force
+    Stop-Process -Name "Postman" -Force
+    Stop-Process -Name "obs64" -Force
+    Stop-Process -Name "GitHubDesktop" -Force
+    Stop-Process -Name "wpscenter" -Force
+    Stop-Process -Name "wpscloudsvr" -Force
+    Stop-Process -Name "vmware-authd" -Force
+    Stop-Process -Name "vmnetdhcp" -Force
+    Stop-Process -Name "vmnat" -Force
+    Stop-Process -Name "vmware-usbarbitrator64" -Force
+    Stop-Process -Name "vmware-unity-helper" -Force
+    Stop-Process -Name "vmware" -Force
+    Stop-Process -Name "vmware-tray" -Force
+}
 
 # mengubah ke asci
-
 # function touch($file) {
 # "" | Out-File $file -Encoding ASCII
 # }
 
 # menghubungkan port
-
 # function konek {
 # param(
 # [Parameter(Mandatory=$true)]
@@ -409,25 +476,21 @@ function posting {
 # }
 
 # menghentikan port
-
 # function stop {
 # netsh interface portproxy reset
 # }
 
 # mengecek port
-
 # function cek {
 # netsh interface portproxy show v4tov4
 # }
 
 # menjalankan server laravel
-
 # function cirun {
 # php spark serve
 # }
 
 # mengcopy file
-
 # function cp {
 # $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 #     $fileName = Read-Host "Enter the file name to copy"
@@ -447,7 +510,6 @@ function posting {
 # }
 
 # memindahkan file
-
 # function mv { # Get current PowerShell directory
 # $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 #     $fileName = Read-Host "Enter the file name to move"
@@ -463,7 +525,6 @@ function posting {
 # }
 
 # mengedit profile
-
 # function Edit-Profile {
 # if ($host.Name -match "ise") {
 #         $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
@@ -472,7 +533,6 @@ function posting {
 # }}
 
 # unzip file
-
 # function unzip ($file) {
 #     Write-Output("Extracting", $file, "to", $pwd)
 #     $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
@@ -480,7 +540,6 @@ function posting {
 # }
 
 # zip file
-
 # function zip {
 #     param(
 #         [Parameter(Mandatory=$true)]
@@ -491,7 +550,6 @@ function posting {
 # }
 
 # menggabungkan pdf
-
 # function gabung {
 #     $folder = Get-Location
 #     $pdfs = Get-ChildItem -Path $folder -Filter *.pdf | Select-Object -ExpandProperty FullName
@@ -500,7 +558,6 @@ function posting {
 # }
 
 # convert pdf
-
 # function opdf {
 #     [CmdletBinding()]
 #     param(
@@ -529,7 +586,6 @@ function posting {
 #     }}
 
 # convert docx to pdf
-
 # function p2w { # Load Aspose.PDF DLL
 # Add-Type -Path "C:\Program Files (x86)\Aspose\Aspose.PDF for .NET\Bin\net4.0\Aspose.PDF.dll"
 #     $pdfFile = Read-Host "Enter the PDF file location and name (e.g. C:\Folder\a.pdf)"
@@ -543,7 +599,6 @@ function posting {
 # }
 
 # menjalankan peco
-
 # function Invoke-PecoHistory {
 # $command = Get-History | peco | select -expandproperty CommandLine
 # if ($command) {
@@ -553,7 +608,7 @@ function posting {
 # Set-PSReadLineKeyHandler -Key Ctrl+f -ScriptBlock ${function:Invoke-PecoHistory}
 
 # lokasi profile theme
-oh-my-posh init pwsh --config $HOME\Documents\GitHub\ps\rezapace.theme.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config $HOME\Documents\GitHub\powershell-profile\rezapace.theme.omp.json | Invoke-Expression
 
 # menjalankan chocolatey
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
