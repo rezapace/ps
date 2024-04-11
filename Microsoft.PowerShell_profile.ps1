@@ -100,6 +100,15 @@ function vs {
     v
 }
 
+# Untuk Mengurai Penggunaan Ram
+function ram {
+    $exePath = Join-Path -Path $HOME -ChildPath "Documents\GitHub\ps\Scriptadd\RAM.exe"
+    Start-Process -FilePath $exePath
+    Start-Sleep -Milliseconds 1000
+    Stop-Process -Name "ram"
+}
+
+
 # langsung buka explore di directory
 function ee {
     param(
@@ -291,7 +300,7 @@ function remove {
         Write-Host "Selesai." -ForegroundColor Green
 
         Write-Host "Menjalankan Disk Cleanup..." -NoNewLine -ForegroundColor Yellow
-        Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/d C: /VERYLOWDISK" -NoNewWindow -Wait
+        Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/d C: /VERYLOWDISK" -NoNewWindow
         Write-Host "Selesai." -ForegroundColor Green
         
         Write-Host "Semua file-file yang ditargetkan telah dihapus." -ForegroundColor Cyan
@@ -302,7 +311,7 @@ function remove {
 }
 
 # api chatgpt
-$script:OpenAI_Key = "isi api key disini"
+$script:OpenAI_Key = "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"
 function ask
 {
 param(
@@ -454,6 +463,16 @@ function closeall {
     Stop-Process -Name "vmware-unity-helper" -Force
     Stop-Process -Name "vmware" -Force
     Stop-Process -Name "vmware-tray" -Force
+    Stop-Process -Name "AsusLinkRemote" -Force
+    Stop-Process -Name "AsusSystemDiagnosis" -Force
+    Stop-Process -Name "AsusSwitch" -Force
+    Stop-Process -Name "AsusLinkNear" -Force
+    Stop-Process -Name "MicrosoftEdgeUpdate" -Force
+    Stop-Process -Name "TiWorker" -Force
+}
+
+function dbgo {
+    migrate -database "postgres://postgres:mysecretpassword@localhost:5432/Tiketing?sslmode=disable" -path db/migration-golang up
 }
 
 # mengubah ke asci
